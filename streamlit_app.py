@@ -47,7 +47,7 @@ if(sf_func=="b"):
   my_cur.execute("select * from fruit_load_list")
   my_data_rows = my_cur.fetchall()
 
-else if(sf_func=="a"):
+elif(sf_func=="a"):
   my_cur.execute("select * from fruit_load_list")
   my_data_rows = my_cur.fetchone()
 
