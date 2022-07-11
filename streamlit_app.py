@@ -44,20 +44,17 @@ my_cur = my_cnx.cursor()
 sf_func = streamlit.text_input('choose 1 func: a. fetchone b. fetchall')
 
 if(sf_func=="b"):
-my_cur.execute("select * from fruit_load_list")
-my_data_rows = my_cur.fetchall()
-streamlit.header("the fruit load list contains:")
-streamlit.dataframe(my_data_rows)
-
-
+  my_cur.execute("select * from fruit_load_list")
+  my_data_rows = my_cur.fetchall()
 
 else if(sf_func=="a"):
-my_cur.execute("select * from fruit_load_list")
-my_data_rows = my_cur.fetchone()
-streamlit.header("the fruit load list contains:")
-streamlit.dataframe(my_data_rows)
-
+  my_cur.execute("select * from fruit_load_list")
+  my_data_rows = my_cur.fetchone()
 
 else:
-streamlit.header("INVALID input")
+  streamlit.header("INVALID input")
+  my_data_rows = "invalid"
+
+streamlit.header("the fruit load list contains:")
+streamlit.dataframe(my_data_rows)
 
