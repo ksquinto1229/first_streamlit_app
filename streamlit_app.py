@@ -11,6 +11,7 @@ streamlit.text('🥗 Kale Spinach & Rocket Smoothie');
 streamlit.text('🐔 Hard Boiled Free-Range Egg');
 streamlit.text('🥑🍞 Avocado Toast');
 
+# ********1st SECTION******************************************************************
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇');
 
 # --------PANDA----------
@@ -26,23 +27,33 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 streamlit.dataframe(fruits_to_show);
 
+# ********2nd SECTION**********************************************************************
 # --------JSON----------
 # Import json file to streamlit
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  
+  #if function
+  if not fruit_choice:
+    #outputs error for null entries
+    streamlit.error('Please select a fruit to get information')
+    
+  else:
+    #gets the JSON file
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+    #normalizes the JSON file
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    #tabulates the result
+    streamlit.dataframe(fruityvice_normalized)
 
-#import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-
-# normalizes json file 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# outputs the table
-streamlit.dataframe(fruityvice_normalized)
+except URLerror as e:
+  streamlit.error
 
 #stop
 streamlit.stop()
 
+# ********3rd SECTION**********************************************************************
 #connect to snowflake yes
 #import snowflake.connector
 #load data from fruit_load_list
