@@ -91,6 +91,7 @@ if not add_my_fruit:
 else:
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"]) 
     insert_row_snowflake(add_my_fruit)
+    streamlit.text(back_from_function)
     my_cnx.close()
     
 #button adds fruit to list
