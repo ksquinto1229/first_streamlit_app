@@ -29,6 +29,15 @@ streamlit.dataframe(fruits_to_show);
 
 # ********2nd SECTION**********************************************************************
 # --------JSON----------
+
+#define function get_fruityvice_data
+def get_fruityvice_data(this_fruit_choice):
+    #gets the JSON file
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
+    #normalizes the JSON file
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+
 # Import json file to streamlit
 streamlit.header("Fruityvice Fruit Advice!")
 try:
@@ -40,12 +49,9 @@ try:
     streamlit.error('Please select a fruit to get information')
     
   else:
-    #gets the JSON file
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+ fruit_choice)
-    #normalizes the JSON file
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    back_from_function = get_fruityvice_data(this_fruit_choice)
     #tabulates the result
-    streamlit.dataframe(fruityvice_normalized)
+    streamlit.dataframe(back_from_function)
 
 except URLerror as e:
   streamlit.error
