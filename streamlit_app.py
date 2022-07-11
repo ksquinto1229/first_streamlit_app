@@ -53,7 +53,7 @@ elif(sf_func=="a"):
 
 else:
   streamlit.header("INVALID input")
-  my_data_rows = "invalid"
+  my_data_rows = None
 
 streamlit.header("the fruit load list contains:")
 streamlit.dataframe(my_data_rows)
